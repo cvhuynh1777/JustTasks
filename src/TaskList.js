@@ -10,6 +10,12 @@ function TaskList() {
   const [category, setCategory] = useState('General');
   const [priority, setPriority] = useState('Medium');
 
+  const priorityMap = {
+    High: 1,
+    Medium: 2,
+    Low: 3,
+  };
+
   const addTask = () => {
     if (task.trim()) {
       const newTask = {
@@ -46,6 +52,11 @@ function TaskList() {
     return tasks.length === 0 ? 0 : (completedTasks / tasks.length) * 100;
   };
 
+  const sortedTasks = [...tasks].sort((a, b) => {
+    if (a.completed !== b.completed) return a.completed - b.completed;
+    return priorityMap[a.priority] - priorityMap[b.priority];
+  });
+
   return (
     <div>
       <h1>JustTasks</h1>
@@ -66,50 +77,38 @@ function TaskList() {
       </select>
       <button onClick={addTask}>Add Task</button>
       <h2>Progress: {getProgress().toFixed(1)}%</h2>
-      <div
-        style={{
-          width: '100%',
-          background: '#ddd',
-          height: '10px',
-          marginTop: '10px',
-          borderRadius: '5px',
-        }}
-      >
+      <div className="progress-bar-wrapper">
         <div
+          className="progress-bar"
           style={{
             width: `${getProgress()}%`,
-            background: 'green',
-            height: '100%',
-            borderRadius: '5px',
           }}
         />
       </div>
       <ul>
-        {tasks.map((t, index) => (
+        {sortedTasks.map((t, index) => (
           <li
             key={index}
+            className="task-item"
             style={{
-              textDecoration: t.completed ? 'line-through' : 'none',
               border: `2px solid ${
                 t.priority === 'High'
-                  ? 'red'
+                  ? '#f44336'
                   : t.priority === 'Medium'
-                  ? 'orange'
-                  : 'green'
+                  ? '#ff9800'
+                  : '#228B22'
               }`,
-              margin: '10px 0',
-              padding: '10px',
-              listStyle: 'none',
-              borderRadius: '5px',
             }}
           >
-            <input
-              type="checkbox"
-              checked={t.completed}
-              onChange={() => toggleTask(index)}
-            />
-            {t.text} - [{t.category}] - Priority: {t.priority}
-            <button onClick={() => removeTask(index)} style={{ marginLeft: '10px' }}>
+            <span>
+              <input
+                type="checkbox"
+                checked={t.completed}
+                onChange={() => toggleTask(index)}
+              />
+              {t.text} - [{t.category}] - <span className="task-priority">Priority: {t.priority}</span>
+            </span>
+            <button className="task-delete" onClick={() => removeTask(index)}>
               Delete
             </button>
           </li>
