@@ -1,3 +1,23 @@
+
+JustTasks is a minimalistic task manager app designed to help you stay focused by displaying "just" tasks.
+
+Features:
+1. Add Tasks with Categories & Priorities:
+  Easily add tasks with customizable categories (Work, Personal, General).
+  Assign priority levels (High, Medium, Low) to organize tasks by importance.
+2. Automatic Priority Sorting:
+  High-priority tasks are automatically sorted to appear at the top of the list for maximum visibility.
+3. Task Completion Tracking:
+  Mark tasks as completed to track your progress visually.
+  Completed tasks are moved to the bottom of the list.
+4. Progress Bar:
+  Visual progress bar to monitor task completion at a glance.
+5. Confetti Animation:
+  Celebrate task completion with a confetti animation! 
+6. Persistent Data:
+  Your tasks are saved locally to ensure they remain intact even after a page refresh.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
